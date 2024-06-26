@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sqltools
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      containers:
+        - name: sqltools
+          image: bastisk/go-sqlcmd:latest
+          command: [ "/bin/sh", "-c", "--" ]
+          args: [ "sqlcmd -S <srv> -d <db>" ]
+      restartPolicy: Never

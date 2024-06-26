@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqltools-debugger
+spec:
+  selector:
+    matchLabels:
+      app: sqltools
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sqltools
+    spec:
+      containers:
+        - name: sqltools
+          image: bastisk/go-sqlcmd:latest
+          command: [ "/bin/sh", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+      restartPolicy: Never
